@@ -14,9 +14,9 @@ namespace PaludariumController.InfraStructure.Devices
             return new TemperatureRequest { Temperature = random.Next(15,23), Response = Response(), Succes = true };
         }
 
-        public LightRequest SetLights(Light light)
+        public LightRequest SetLights(Light light, bool doFade)
         {          
-            return new LightRequest { Light = light, Response = Response(), Succes = true };
+            return new LightRequest { Light = light, Response = Response() + $"doFade = {doFade}", Succes = true };
         }
 
         private static string Response()

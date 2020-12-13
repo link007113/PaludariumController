@@ -27,9 +27,9 @@ namespace PaludariumController.WebApi.Controllers
         }
 
         [HttpPost]
-        public LightRequest SetLights(Light light)
+        public LightRequest SetLights(Light light, bool doFade)
         {
-            return lightsService.SetLights(light);
+            return lightsService.SetLights(light, doFade);
         }
     }
 }

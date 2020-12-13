@@ -8,6 +8,6 @@ namespace PaludariumController.Core.Interfaces
     public interface IDevice
     {
         public TemperatureRequest GetTemp();
-        public LightRequest SetLights(Light light);
+        public LightRequest SetLights(Light light, bool doFade = false);
     }
 }

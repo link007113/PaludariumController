@@ -45,11 +45,22 @@ namespace PaludariumController.WebApi
 
             switch (Configuration.GetValue<string>("Device"))
             {
-                case "Mock": services.AddSingleton<IDevice, MockDevice>(); break;
-                case "Com": services.AddSingleton<IDevice, ComDevice>(); break;
+                case "Mock": SetupMock(services); break;
+                case "Com": SetupCom(services, Configuration); break;
                 default: services.AddScoped<IDevice, MockDevice>(); break;
             }
 
+        }
+        private static void SetupCom(IServiceCollection services, IConfiguration configuration)
+        {
+            var serialPort = new System.IO.Ports.SerialPort();
+            serialPort.PortName = configuration.GetValue<string>("Port").ToUpper();
+            services.AddSingleton<System.IO.Ports.SerialPort>(serialPort);
+            services.AddSingleton<IDevice, ComDevice>();
+        }
+        private static void SetupMock(IServiceCollection services)
+        {
+            services.AddSingleton<IDevice, MockDevice>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

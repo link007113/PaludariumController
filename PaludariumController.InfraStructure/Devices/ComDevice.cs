@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using PaludariumController.Core.Interfaces;
 using PaludariumController.Core.Models;
 using PaludariumController.Core.Utils;
@@ -25,14 +26,17 @@ namespace PaludariumController.InfraStructure.Devices
             TemperatureRequest result = new TemperatureRequest();
             try
             {
-                if (serialPort.IsOpen)
+                if (!serialPort.IsOpen)
                 {
-                    // LogHelper.Log("Trying to get temperature", "info");
-                    serialPort.Write("c4");
-
-                    result.Response = serialPort.ReadLine();
-                    // LogHelper.Log($"Response: {response}", "info");
+                    OpenPort();
                 }
+
+                // LogHelper.Log("Trying to get temperature", "info");
+                serialPort.Write("c4");
+
+                result.Response = serialPort.ReadLine();
+                // LogHelper.Log($"Response: {response}", "info");
+
 
                 if (result.Response.Length < 12)
                 {
@@ -99,22 +103,28 @@ namespace PaludariumController.InfraStructure.Devices
         }
 
 
-        public LightRequest SetLights(Light light)
+        public LightRequest SetLights(Light light, bool doFade)
         {
-            LightRequest result = new LightRequest() { Light = light };
-            var options = new JsonSerializerOptions
+            LightRequest result = new LightRequest() { Light = light };            
+            try
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            };
-
-            Light oldLight = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath("Light.json")), options);
-
-            if (oldLight != light && result.LightState == "on")
-            {
-                if (serialPort.IsOpen)
+                if (!serialPort.IsOpen)
                 {
-                    result.Fade = true;
-                    int discreteUnits = 10;
+                    OpenPort();
+                }
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                };
+
+                Light oldLight = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath("Light.json")), options);
+
+                if (doFade && oldLight != light && result.LightState == "on")
+                {
+
+                    result.Fade = doFade;
+                    int discreteUnits = 25;
                     Color fadeTo = Light.GetColor(light);
                     Color baseClr = Light.GetColor(oldLight);
                     float correctionFactor = 0.0f;
@@ -130,24 +140,27 @@ namespace PaludariumController.InfraStructure.Devices
                         int greenInt = (int)green;
                         int blueInt = (int)blue;
                         ColorCommand(redInt.ToString().PadLeft(3, '0'), blueInt.ToString().PadLeft(3, '0'), greenInt.ToString().PadLeft(3, '0'));
+                        Thread.Sleep(500);
                     }
-
+                    
                     result.Succes = true;
-
                 }
                 else
                 {
-                    result.Succes = false;
-                    return null;
+                    ColorCommand(light.Red.PadLeft(3, '0'), light.Blue.PadLeft(3, '0'), light.Green.PadLeft(3, '0'));
+                    
+                    result.Succes = true;
                 }
+                return result;
             }
-            else
+            catch (Exception ex)
             {
-                ColorCommand(light.Red.PadLeft(3, '0'), light.Blue.PadLeft(3, '0'), light.Green.PadLeft(3, '0'));
-                result.Succes = true;
-
+                result.Response = ex.Message;
+                result.Succes = false;
+                return result;
             }
-            return result;
+           
+           
         }
     }
 }

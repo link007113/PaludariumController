@@ -21,16 +21,16 @@ namespace PaludariumController.Core.Services
             this.device = device;
         }
 
-        public LightRequest SetLights(Light light)
+        public LightRequest SetLights(Light light, bool doFade)
         {
-            var result = device.SetLights(light);
-            this.Light = result.Light;
+            var result = device.SetLights(light, doFade);
+            this.Light = light;
             var options = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
 
-            File.WriteAllText(FileUtil.GetFilePath("Light.json"), JsonSerializer.Serialize(result.Light, options));
+            File.WriteAllText(FileUtil.GetFilePath("Light.json"), JsonSerializer.Serialize(light, options));
             return result;
             
         }
