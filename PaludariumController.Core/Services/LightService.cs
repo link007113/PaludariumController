@@ -91,12 +91,7 @@ namespace PaludariumController.Core.Services
                 default:
                     return new Light(Color.Snow);
             }
-        }
-
-        public Color GetColor()
-        {
-            return Color.FromArgb(int.Parse(GetLight().Red), int.Parse(GetLight().Green), int.Parse(GetLight().Blue));
-        }
+        }      
 
     }
 }

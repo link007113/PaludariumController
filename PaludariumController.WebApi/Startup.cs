@@ -20,6 +20,7 @@ namespace PaludariumController.WebApi
 {
     public class Startup
     {
+        public string InstanceName { get; private set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,23 +31,25 @@ namespace PaludariumController.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            InstanceName = Configuration.GetValue<string>("InstanceName");
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PaludariumController.WebApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = $"{InstanceName}Controller.WebApi", Version = "v1" });
             });
 
             services.AddScoped<ILightsService, LightService>();
             services.AddScoped<ITemperatureService, TemperatureService>();
-            if (Debugger.IsAttached)
+
+
+            switch (Configuration.GetValue<string>("Device"))
             {
-                services.AddScoped<IDevice, MockDevice>();
+                case "Mock": services.AddSingleton<IDevice, MockDevice>(); break;
+                case "Com": services.AddSingleton<IDevice, ComDevice>(); break;
+                default: services.AddScoped<IDevice, MockDevice>(); break;
             }
-            else 
-            {
-                services.AddScoped<IDevice, ComDevice>();
-            }
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

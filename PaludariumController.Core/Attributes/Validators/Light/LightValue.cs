@@ -15,12 +15,11 @@ namespace PaludariumController.Core.Attributes.Validators.Light
             {
                 if (testString.Length < 4)
                 {
-
                     int testInt;
                     retVal = int.TryParse(testString, out testInt);
                     if (retVal)
                     {
-                        if (testInt <= 0)
+                        if (testInt < 0)
                             retVal = false;
                         else if (testInt >= 256)
                             retVal = false;

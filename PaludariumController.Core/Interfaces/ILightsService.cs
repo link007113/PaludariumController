@@ -8,6 +8,5 @@ namespace PaludariumController.Core.Interfaces
         public Light GetCurrentLight(int hour);
         public LightRequest SetLights(Light light);
         public Light GetLight();
-        public Color GetColor();
     }
 }

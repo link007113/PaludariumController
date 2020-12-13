@@ -21,6 +21,8 @@ namespace PaludariumController.WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                    //webBuilder.UseKestrel((hostingContext, options) => { options.Configure(hostingContext.Configuration.GetSection("Kestrel")); });
+                }
+                );
     }
 }

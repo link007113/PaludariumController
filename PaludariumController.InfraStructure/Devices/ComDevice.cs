@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Text;
+using System.Text.Json;
 using PaludariumController.Core.Interfaces;
 using PaludariumController.Core.Models;
+using PaludariumController.Core.Utils;
 
 namespace PaludariumController.InfraStructure.Devices
 {
-   public class ComDevice : IDevice
+    public class ComDevice : IDevice
     {
         private readonly SerialPort serialPort;
 
@@ -59,7 +63,7 @@ namespace PaludariumController.InfraStructure.Devices
             }
 
             serialPort.Write(@byte);
-            serialPort.Write("\n");           
+            serialPort.Write("\n");
         }
 
         public void OpenPort()
@@ -71,10 +75,10 @@ namespace PaludariumController.InfraStructure.Devices
                     try
                     {
                         serialPort.Open();
-                 
+
                     }
                     catch (Exception ex)
-                    {                       
+                    {
                         //// LogHelper.Log(ex.Message, "error");
                     }
                 }
@@ -83,28 +87,68 @@ namespace PaludariumController.InfraStructure.Devices
             {
                 if (!serialPort.IsOpen)
                 {
-                    serialPort.Open();         
+                    serialPort.Open();
                 }
             }
-           
+
         }
+
+        public void ColorCommand(string red, string blue, string green)
+        {
+            serialPort.Write($"c3r{green}g{red}b{blue}");
+        }
+
 
         public LightRequest SetLights(Light light)
         {
-
             LightRequest result = new LightRequest() { Light = light };
-            if (serialPort.IsOpen)
+            var options = new JsonSerializerOptions
             {
-                // LogHelper.Log($"Following colors will be send: \nRed: {Light.Red}\nGreen: {Light.Green}\nBlue: {Light.Blue}\n", "info");
-                serialPort.Write($"c3r{light.Green}g{light.Red}b{light.Blue}");
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            };
+
+            Light oldLight = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath("Light.json")), options);
+
+            if (oldLight != light && result.LightState == "on")
+            {
+                if (serialPort.IsOpen)
+                {
+                    result.Fade = true;
+                    int discreteUnits = 10;
+                    Color fadeTo = Light.GetColor(light);
+                    Color baseClr = Light.GetColor(oldLight);
+                    float correctionFactor = 0.0f;
+                    float corFactorStep = 1.0f / discreteUnits;
+
+                    for (int i = 0; i < discreteUnits; i++)
+                    {
+                        correctionFactor += corFactorStep;
+                        float red = (fadeTo.R - baseClr.R) * correctionFactor + baseClr.R;
+                        float green = (fadeTo.G - baseClr.G) * correctionFactor + baseClr.G;
+                        float blue = (fadeTo.B - baseClr.B) * correctionFactor + baseClr.B;
+                        int redInt = (int)red;
+                        int greenInt = (int)green;
+                        int blueInt = (int)blue;
+                        ColorCommand(redInt.ToString().PadLeft(3, '0'), blueInt.ToString().PadLeft(3, '0'), greenInt.ToString().PadLeft(3, '0'));
+                    }
+
+                    result.Succes = true;
+
+                }
+                else
+                {
+                    result.Succes = false;
+                    return null;
+                }
+            }
+            else
+            {
+                ColorCommand(light.Red.PadLeft(3, '0'), light.Blue.PadLeft(3, '0'), light.Green.PadLeft(3, '0'));
                 result.Succes = true;
-                return result;
 
             }
-            else { result.Succes = false;
-                return null;
-            } 
-
+            return result;
         }
     }
 }
+
