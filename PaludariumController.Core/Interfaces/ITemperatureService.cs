@@ -1,10 +1,11 @@
 ﻿using PaludariumController.Core.Models;
+using System.Threading.Tasks;
 
 namespace PaludariumController.Core.Interfaces
 {
    public interface ITemperatureService
     {
-        public TemperatureRequest GetTemp();
+        Task<TemperatureRequest> GetTempAsync();
 
     }
 }

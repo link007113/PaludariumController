@@ -20,9 +20,9 @@ namespace PaludariumController.WebApi.Controllers
         }
 
         [HttpGet]
-        public TemperatureRequest GetTemp()
+        public async Task<TemperatureRequest> GetTempAsync()
         {
-            return temperatureService.GetTemp();
+            return await temperatureService.GetTempAsync();
         }
     }
 }

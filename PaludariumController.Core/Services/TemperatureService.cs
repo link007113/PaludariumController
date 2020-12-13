@@ -3,10 +3,11 @@ using PaludariumController.Core.Models;
 using System;
 using System.IO.Ports;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PaludariumController.Core.Services
 {
- public   class TemperatureService : ITemperatureService
+    public class TemperatureService : ITemperatureService
 
     {
         private readonly IDevice device;
@@ -15,9 +16,11 @@ namespace PaludariumController.Core.Services
         {
             this.device = device;
         }
-        public TemperatureRequest GetTemp()
+
+        public Task<TemperatureRequest> GetTempAsync()
         {
-          return device.GetTemp();
+            return device.GetTempAsync();
         }
+
     }
 }

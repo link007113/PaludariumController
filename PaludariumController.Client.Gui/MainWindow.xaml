@@ -1,0 +1,14 @@
+﻿<Window x:Class="PaludariumController.Client.Gui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PaludariumController.Client.Gui"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="TemperatureButton" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="TemperatureButton_Click"/>
+        <TextBlock x:Name="TemperatureText" HorizontalAlignment="Center" Margin="0,179,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

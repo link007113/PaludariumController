@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PaludariumController.Core.Interfaces
 {
     public interface IDevice
-    {
-        public TemperatureRequest GetTemp();
+    {        
+        Task<TemperatureRequest> GetTempAsync();
         public LightRequest SetLights(Light light, bool doFade = false);
     }
 }

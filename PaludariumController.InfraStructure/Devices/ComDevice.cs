@@ -6,6 +6,7 @@ using System.IO.Ports;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using System.Threading.Tasks;
 using PaludariumController.Core.Interfaces;
 using PaludariumController.Core.Models;
 using PaludariumController.Core.Utils;
@@ -21,7 +22,7 @@ namespace PaludariumController.InfraStructure.Devices
             this.serialPort = serialPort;
         }
 
-        public TemperatureRequest GetTemp()
+        public async Task<TemperatureRequest> GetTempAsync()
         {
             TemperatureRequest result = new TemperatureRequest();
             try

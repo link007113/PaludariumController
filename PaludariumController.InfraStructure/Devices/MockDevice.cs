@@ -3,15 +3,16 @@ using PaludariumController.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PaludariumController.InfraStructure.Devices
 {
    public class MockDevice : IDevice
     {
-        public TemperatureRequest GetTemp()
+        public Task<TemperatureRequest> GetTempAsync()
         {
             Random random = new Random();
-            return new TemperatureRequest { Temperature = random.Next(15,23), Response = Response(), Succes = true };
+            return Task.FromResult(new TemperatureRequest { Temperature = random.Next(15,23), Response = Response(), Succes = true });
         }
 
         public LightRequest SetLights(Light light, bool doFade)
@@ -23,5 +24,7 @@ namespace PaludariumController.InfraStructure.Devices
         {
             return "This response comes from the mock";
         }
+
+      
     }
 }

@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaludariumController.WebApi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaludariumController.InfraStructure", "PaludariumController.InfraStructure\PaludariumController.InfraStructure.csproj", "{C3BC9E71-1702-4C0F-BCCC-F33E9ED9FEF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaludariumController.Client.InfraStructure", "PaludariumController.Client.InfraStructure\PaludariumController.Client.InfraStructure.csproj", "{8D90C1F8-4ADC-4046-BC77-75C7DFF96D0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaludariumController.Client.Gui", "PaludariumController.Client.Gui\PaludariumController.Client.Gui.csproj", "{FB97F2FC-284A-4046-8221-FDAB416B6295}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{C3BC9E71-1702-4C0F-BCCC-F33E9ED9FEF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3BC9E71-1702-4C0F-BCCC-F33E9ED9FEF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3BC9E71-1702-4C0F-BCCC-F33E9ED9FEF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D90C1F8-4ADC-4046-BC77-75C7DFF96D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D90C1F8-4ADC-4046-BC77-75C7DFF96D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D90C1F8-4ADC-4046-BC77-75C7DFF96D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D90C1F8-4ADC-4046-BC77-75C7DFF96D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB97F2FC-284A-4046-8221-FDAB416B6295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB97F2FC-284A-4046-8221-FDAB416B6295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB97F2FC-284A-4046-8221-FDAB416B6295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB97F2FC-284A-4046-8221-FDAB416B6295}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
