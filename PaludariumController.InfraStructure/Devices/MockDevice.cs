@@ -11,12 +11,17 @@ namespace PaludariumController.InfraStructure.Devices
         public TemperatureRequest GetTemp()
         {
             Random random = new Random();
-            return new TemperatureRequest { Temperature = random.Next(15,23), Response = "This Response Comes From the mock", Succes = true };
+            return new TemperatureRequest { Temperature = random.Next(15,23), Response = Response(), Succes = true };
         }
 
         public LightRequest SetLights(Light light)
         {          
-            return new LightRequest { Light = light, Response = "This Response Comes From the mock", Succes = true };
+            return new LightRequest { Light = light, Response = Response(), Succes = true };
+        }
+
+        private static string Response()
+        {
+            return "This response comes from the mock";
         }
     }
 }
