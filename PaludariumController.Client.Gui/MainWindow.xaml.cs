@@ -24,6 +24,8 @@ namespace PaludariumController.Client.Gui
     public partial class MainWindow : Window
     {
         private readonly ITemperatureService temperatureService;
+        public MainWindow()
+        { }
         public MainWindow(ITemperatureService temperatureService)
         {
             InitializeComponent();

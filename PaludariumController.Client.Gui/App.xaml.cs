@@ -30,7 +30,8 @@ namespace PaludariumController.Client.Gui
             services.AddScoped<ILightsService, LightService>();
             services.AddScoped<ITemperatureService, TemperatureService>();
             services.AddScoped<IDevice, PaludiariumHttpRepository>();
-            services.AddHttpClient();
+            services.AddHttpClient();           
+            
         }
 
         protected override async void OnStartup(StartupEventArgs e)
