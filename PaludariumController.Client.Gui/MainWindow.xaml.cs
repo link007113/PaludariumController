@@ -26,7 +26,7 @@ namespace PaludariumController.Client.Gui
         private readonly ITemperatureService temperatureService;
 
         private readonly ILightsService lightsService;
-
+        private bool checkbox_doFade;
         public MainWindow(ITemperatureService temperatureService, ILightsService lightsService)
         {
             InitializeComponent();
@@ -40,13 +40,31 @@ namespace PaludariumController.Client.Gui
             TemperatureText.Text = result.Temperature.ToString();
         }
 
-        private void ClrPcker_Background_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        private void Fade_Checked(object sender, RoutedEventArgs e)
         {
-            if (ClrPcker_Background.SelectedColor.HasValue)
+            checkbox_doFade = true;
+        }
+
+        private void Fade_Unchecked(object sender, RoutedEventArgs e)
+        {
+            checkbox_doFade = false;
+        }
+
+        private void LightColor_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (LightColor.SelectedColor.HasValue)
             {
-                Light light = new Light(System.Drawing.Color.FromArgb(ClrPcker_Background.SelectedColor.Value.R, ClrPcker_Background.SelectedColor.Value.G, ClrPcker_Background.SelectedColor.Value.B));
-                LightRequest result = lightsService.SetLights(light, false);
+                Light light = new Light(System.Drawing.Color.FromArgb(LightColor.SelectedColor.Value.R, LightColor.SelectedColor.Value.G, LightColor.SelectedColor.Value.B));
+                LightRequest result = lightsService.SetLights(light, checkbox_doFade);
             }
         }
+        //private void LightColor_SelectedColorChanged(RoutedPropertyChangedEventHandler<Color?> e)
+        //{
+        //    if (LightColor.SelectedColor.HasValue)
+        //    {
+        //        Light light = new Light(System.Drawing.Color.FromArgb(LightColor.SelectedColor.Value.R, LightColor.SelectedColor.Value.G, LightColor.SelectedColor.Value.B));
+        //        LightRequest result = lightsService.SetLights(light, false);
+        //    }
+        //}
     }
 }

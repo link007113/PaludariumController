@@ -20,7 +20,7 @@ namespace PaludariumController.Client.InfraStructure
         public async Task<TemperatureRequest> GetTempAsync()
         {
            TemperatureRequest result;
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/api/temperature");
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:44323/api/temperature");
             request.Headers.Add("Accept", "application/json");
             //request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
 
@@ -46,7 +46,22 @@ namespace PaludariumController.Client.InfraStructure
 
         public LightRequest SetLights(Light light, bool doFade = false)
         {
-            throw new NotImplementedException();
+            var result = new LightRequest { Light = light };
+            var client = clientFactory.CreateClient();
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            };
+            var todoItemJson = new StringContent(JsonSerializer.Serialize(light, options), Encoding.UTF8, "application/json");
+            using var response = client.PostAsync("https://localhost:44323/api/light", todoItemJson);
+
+            //httpResponse.EnsureSuccessStatusCode();
+
+
+            result.Response = response.Result.Content.ToString();
+            
+            return result;
         }
     }
 }

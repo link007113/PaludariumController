@@ -8,9 +8,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="TemperatureButton" Content="Tempertatuur" HorizontalAlignment="Left" VerticalAlignment="Top" Click="TemperatureButton_Click" Margin="29,22,0,0"/>
+        <Button x:Name="TemperatureButton" Content="Temperatuur" HorizontalAlignment="Left" VerticalAlignment="Top" Click="TemperatureButton_Click" Margin="29,22,0,0"/>
         <TextBlock x:Name="TemperatureText" HorizontalAlignment="Left" Margin="130,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="Set_Light" Content="Zet licht" HorizontalAlignment="Left" VerticalAlignment="Top" Click="TemperatureButton_Click" Margin="29,54,0,0"/>
-        <xctk:ColorPicker Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged"></xctk:ColorPicker>
+        <xctk:ColorPicker Name="LightColor" SelectedColorChanged="LightColor_SelectedColorChanged" Margin="29,68,545,149"></xctk:ColorPicker>
+        <CheckBox x:Name="Fade" Content="CheckBox" HorizontalAlignment="Left" Margin="276,182,0,0" VerticalAlignment="Top" Checked="Fade_Checked" Unchecked="Fade_Unchecked" RenderTransformOrigin="0.5,0.5">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="10.729"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
     </Grid>
 </Window>
