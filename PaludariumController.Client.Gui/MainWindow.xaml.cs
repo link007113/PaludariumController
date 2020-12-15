@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using PaludariumController.Core.Models;
 using PaludariumController.Core.Interfaces;
 using PaludariumController.Client.InfraStructure;
-
+using Xceed.Wpf.Toolkit;
 namespace PaludariumController.Client.Gui
 {
     /// <summary>
@@ -24,18 +24,29 @@ namespace PaludariumController.Client.Gui
     public partial class MainWindow : Window
     {
         private readonly ITemperatureService temperatureService;
-        public MainWindow()
-        { }
-        public MainWindow(ITemperatureService temperatureService)
+
+        private readonly ILightsService lightsService;
+
+        public MainWindow(ITemperatureService temperatureService, ILightsService lightsService)
         {
             InitializeComponent();
             this.temperatureService = temperatureService;
+            this.lightsService = lightsService;
         }
 
-        private  async void TemperatureButton_Click(object sender, RoutedEventArgs e)
+        private async void TemperatureButton_Click(object sender, RoutedEventArgs e)
         {
             TemperatureRequest result = await temperatureService.GetTempAsync();
             TemperatureText.Text = result.Temperature.ToString();
+        }
+
+        private void ClrPcker_Background_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            if (ClrPcker_Background.SelectedColor.HasValue)
+            {
+                Light light = new Light(System.Drawing.Color.FromArgb(ClrPcker_Background.SelectedColor.Value.R, ClrPcker_Background.SelectedColor.Value.G, ClrPcker_Background.SelectedColor.Value.B));
+                LightRequest result = lightsService.SetLights(light, false);
+            }
         }
     }
 }

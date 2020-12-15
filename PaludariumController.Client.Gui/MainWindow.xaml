@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaludariumController.Client.Gui"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="TemperatureButton" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="TemperatureButton_Click"/>
-        <TextBlock x:Name="TemperatureText" HorizontalAlignment="Center" Margin="0,179,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
-
+        <Button x:Name="TemperatureButton" Content="Tempertatuur" HorizontalAlignment="Left" VerticalAlignment="Top" Click="TemperatureButton_Click" Margin="29,22,0,0"/>
+        <TextBlock x:Name="TemperatureText" HorizontalAlignment="Left" Margin="130,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="Set_Light" Content="Zet licht" HorizontalAlignment="Left" VerticalAlignment="Top" Click="TemperatureButton_Click" Margin="29,54,0,0"/>
+        <xctk:ColorPicker Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged"></xctk:ColorPicker>
     </Grid>
 </Window>
