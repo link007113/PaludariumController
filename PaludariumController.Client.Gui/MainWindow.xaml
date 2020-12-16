@@ -11,12 +11,12 @@
         <Button x:Name="TemperatureButton" Content="Temperatuur" HorizontalAlignment="Left" VerticalAlignment="Top" Click="TemperatureButton_Click" Margin="29,22,0,0"/>
         <TextBlock x:Name="TemperatureText" HorizontalAlignment="Left" Margin="130,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <xctk:ColorPicker Name="LightColor" SelectedColorChanged="LightColor_SelectedColorChanged" Margin="29,68,545,149"></xctk:ColorPicker>
-        <CheckBox x:Name="Fade" Content="CheckBox" HorizontalAlignment="Left" Margin="276,182,0,0" VerticalAlignment="Top" Checked="Fade_Checked" Unchecked="Fade_Unchecked" RenderTransformOrigin="0.5,0.5">
+        <CheckBox x:Name="Fade" Content="Fading enabled" HorizontalAlignment="Left" Margin="276,182,0,0" VerticalAlignment="Top" Checked="Fade_Checked" Unchecked="Fade_Unchecked" RenderTransformOrigin="0.5,0.5">
             <CheckBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform/>
-                    <RotateTransform Angle="10.729"/>
+                    <RotateTransform Angle="-0.166"/>
                     <TranslateTransform/>
                 </TransformGroup>
             </CheckBox.RenderTransform>

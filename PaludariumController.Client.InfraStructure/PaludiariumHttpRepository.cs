@@ -11,7 +11,7 @@ namespace PaludariumController.Client.InfraStructure
     public class PaludiariumHttpRepository : IDevice
     {
         private readonly IHttpClientFactory clientFactory;
-
+        private int portNumber= 5001;
         public PaludiariumHttpRepository(IHttpClientFactory clientFactory)
         {
             this.clientFactory = clientFactory;
@@ -20,7 +20,7 @@ namespace PaludariumController.Client.InfraStructure
         public async Task<TemperatureRequest> GetTempAsync()
         {
            TemperatureRequest result;
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:44323/api/temperature");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:{portNumber}/api/temperature");
             request.Headers.Add("Accept", "application/json");
             //request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
 
@@ -54,7 +54,14 @@ namespace PaludariumController.Client.InfraStructure
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
             var todoItemJson = new StringContent(JsonSerializer.Serialize(light, options), Encoding.UTF8, "application/json");
-            using var response = client.PostAsync("https://localhost:44323/api/light", todoItemJson);
+            string url;
+            if (doFade)
+                url = $"https://localhost:{portNumber}/api/light?doFade=true";
+            else
+                url = $"https://localhost:{portNumber}/api/light";
+
+
+            using var response = client.PostAsync(url, todoItemJson);
 
             //httpResponse.EnsureSuccessStatusCode();
 
