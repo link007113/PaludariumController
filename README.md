@@ -22,7 +22,7 @@ The response will look as follows:
  {
   "temperature": 19.56,
   "response": "Temperature: 19.56\r",
-  "succes": false
+  "succes": true
 }
 ```
 ### Lighting
