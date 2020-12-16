@@ -7,6 +7,7 @@ using System.Text;
 using System.IO;
 using System.Text.Json;
 using PaludariumController.Core.Utils;
+using CoordinateSharp;
 
 namespace PaludariumController.Core.Services
 {
@@ -32,7 +33,7 @@ namespace PaludariumController.Core.Services
 
             File.WriteAllText(FileUtil.GetFilePath("Light.json"), JsonSerializer.Serialize(light, options));
             return result;
-            
+
         }
         public Light GetLight()
         {
@@ -45,7 +46,7 @@ namespace PaludariumController.Core.Services
 
             if (light == null)
             {
-                return GetCurrentLight(DateTime.Now.Hour);
+                return GetCurrentLight();
             }
             else
             {
@@ -53,8 +54,18 @@ namespace PaludariumController.Core.Services
             }
         }
 
-    
-        public Light GetCurrentLight(int hour)
+        public Light GetCurrentLight()
+        {
+            Coordinate coordinate = new Coordinate(52.20122169520473, 5.995868479602127, DateTime.Now);
+
+            if (coordinate.CelestialInfo.IsSunUp)
+            {
+                return GetLightPerHour(DateTime.Now.Hour);
+            }
+            else { return new Light(Color.FromArgb(5, 0, 25)); }
+        }
+
+        public Light GetLightPerHour(int hour)
         {
             switch (hour)
             {
@@ -91,7 +102,7 @@ namespace PaludariumController.Core.Services
                 default:
                     return new Light(Color.Snow);
             }
-        }      
+        }
 
     }
 }

@@ -5,8 +5,9 @@ namespace PaludariumController.Core.Interfaces
 {
     public interface ILightsService
     {
-        public Light GetCurrentLight(int hour);
+        public Light GetCurrentLight();
         public LightRequest SetLights(Light light, bool doFade);
         public Light GetLight();
+        public Light GetLightPerHour(int hour);
     }
 }
