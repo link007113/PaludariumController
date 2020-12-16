@@ -26,6 +26,12 @@ namespace PaludariumController.WebApi.Controllers
             return lightsService.GetLight();
         }
 
+        [HttpGet("CurrentLight")]
+        public LightRequest SetLightToCurrent(bool doFade)
+        {
+            return lightsService.SetLights(lightsService.GetCurrentLight(DateTime.Now.Hour), doFade);
+        }
+
         [HttpPost]
         public LightRequest SetLights(Light light, bool doFade)
         {
