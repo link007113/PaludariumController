@@ -47,7 +47,7 @@ The result will look like this:
 }
 ```
 
-For chaning the lights you can use the  folowing Uri's:
+For chaning the lights you can use the folowing Uri's:
 
 - https://host:portnumber/api/Light/SetLightsBy/CurrentLight
 > CurrentLight uses the location and time of the user. For now this is only configurable in the code. 
@@ -56,7 +56,7 @@ For chaning the lights you can use the  folowing Uri's:
 - https://host:portnumber/api/Light/SetLightsBy/RGB?r=1&g=1&b=1&doFade=true
 > Lights by RGB recieves a query for the RGB values of R, G, B and als an optinal query for fading. If no numbers are given, it falls back to 0.
 - https://host:portnumber/api/Light/SetLightsBy/Colorname/white?doFade=true
-> Lights by color recieves color names. Fading is optinal. See https://htmlcolorcodes.com/color-names/ for the full list of colornames
+> Lights by color recieves color names. Fading is optinal. See for the full list of colornames https://htmlcolorcodes.com/color-names/ 
 
 #### Post
 One can also use to use the folowing uri to set the lights via a JSON object (see below) : 
