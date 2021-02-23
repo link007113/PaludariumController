@@ -42,15 +42,19 @@ namespace PaludariumController.Core.Services
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
 
-            Light light = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath("files/light.json")), options);       
-            if (light == null)
+            if (File.Exists(FileUtil.GetFilePath("files/light.json")))
             {
-                return GetCurrentLight();
+                Light light = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath("files/light.json")), options);
+                if (light == null)
+                {
+                    return GetCurrentLight();
+                }
+                else
+                {
+                    return light;
+                }
             }
-            else
-            {
-                return light;
-            }
+            else { return GetCurrentLight(); }
         }
 
         public Light GetCurrentLight()

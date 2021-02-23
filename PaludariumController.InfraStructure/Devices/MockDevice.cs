@@ -25,6 +25,9 @@ namespace PaludariumController.InfraStructure.Devices
             return "This response comes from the mock";
         }
 
-      
+        public CoolingRequest SetFan(bool state)
+        {
+            return new CoolingRequest { State = state ? "on" : "off", Response = Response(), Succes = true } ;
+        }
     }
 }

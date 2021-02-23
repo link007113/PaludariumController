@@ -13,6 +13,11 @@ namespace PaludariumController.Core.Utils
             string result = System.IO.Path.Combine(strWorkPath, file);
             return result;
         }
-
+        public static string GetWorkingDir()
+        {
+            string strExeFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string result = System.IO.Path.GetDirectoryName(strExeFilePath);
+            return result;
+        }
     }
 }

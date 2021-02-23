@@ -44,6 +44,33 @@ namespace PaludariumController.Client.InfraStructure
             return result;
         }
 
+        public CoolingRequest SetFan(bool state)
+        {
+            CoolingRequest result;
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:{portNumber}/api/fan");
+            request.Headers.Add("Accept", "application/json");
+            //request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+
+            var client = clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                };
+                result = await JsonSerializer.DeserializeAsync<CoolingRequest>(responseStream, options);
+            }
+            else
+            {
+                result = new CoolingRequest();
+            }
+            return result;
+        }
+
         public LightRequest SetLights(Light light, bool doFade = false)
         {
             var result = new LightRequest { Light = light };

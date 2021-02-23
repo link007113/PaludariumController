@@ -7,5 +7,8 @@ namespace PaludariumController.Core.Interfaces
     {
         Task<TemperatureRequest> GetTempAsync();
 
+        CoolingRequest SetCooling(bool state);
+
+        CoolingRequest GetCooling();
     }
 }

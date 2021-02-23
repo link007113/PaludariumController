@@ -10,5 +10,6 @@ namespace PaludariumController.Core.Interfaces
     {        
         Task<TemperatureRequest> GetTempAsync();
         public LightRequest SetLights(Light light, bool doFade = false);
+        public CoolingRequest SetFan(bool state);
     }
 }

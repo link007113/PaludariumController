@@ -31,12 +31,11 @@ namespace PaludariumController.InfraStructure.Devices
                 {
                     OpenPort();
                 }
-
-                // LogHelper.Log("Trying to get temperature", "info");
                 serialPort.Write("c4");
 
                 result.Response = serialPort.ReadLine();
-                // LogHelper.Log($"Response: {response}", "info");
+                Console.WriteLine(result.Response);
+               
 
 
                 if (result.Response.Length < 12)
@@ -119,7 +118,7 @@ namespace PaludariumController.InfraStructure.Devices
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 };
 
-                Light oldLight = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath("Light.json")), options);
+                Light oldLight = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath("files/light.json")), options);
 
                 if (doFade && oldLight != light && result.LightState == "on")
                 {
@@ -162,6 +161,39 @@ namespace PaludariumController.InfraStructure.Devices
             }
            
            
+        }
+
+        public CoolingRequest SetFan(bool state)
+        {
+            CoolingRequest result = new CoolingRequest();
+            try
+            {
+                if (!serialPort.IsOpen)
+                {
+                    OpenPort();
+                }
+
+                switch (state)
+                {
+                    case true:
+                        serialPort.Write("c5");
+                        result.State = "on";
+                        break;
+                    case false:
+                        serialPort.Write("c6");
+                        result.State = "off";
+                        break;
+                    default:
+                }
+
+                result.Response = serialPort.ReadLine();
+                Console.WriteLine(result.Response);
+                return result;
+            }
+            catch (Exception ex) {
+                Console.WriteLine(ex);
+                result.Succes = false;
+                return result; }
         }
     }
 }

@@ -15,6 +15,8 @@ using PaludariumController.Core.Services;
 using PaludariumController.Core.Interfaces;
 using PaludariumController.InfraStructure.Devices;
 using System.Diagnostics;
+using System.IO;
+using PaludariumController.Core.Utils;
 
 namespace PaludariumController.WebApi
 {
@@ -42,6 +44,10 @@ namespace PaludariumController.WebApi
             services.AddScoped<ILightsService, LightService>();
             services.AddScoped<ITemperatureService, TemperatureService>();
 
+            if (!Directory.Exists(System.IO.Path.Combine(FileUtil.GetWorkingDir(), "files")))
+            {
+                Directory.CreateDirectory(System.IO.Path.Combine(FileUtil.GetWorkingDir(), "files"));
+            }
 
             switch (Configuration.GetValue<string>("Device"))
             {
