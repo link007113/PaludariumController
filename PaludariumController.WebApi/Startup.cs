@@ -69,12 +69,16 @@ namespace PaludariumController.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
+            }
+
+            bool useSwagger = Configuration.GetValue<string>("UseSwagger").ToLower() == "true";
+
+            if (useSwagger)
+            {
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PaludariumController.WebApi v1"));
             }
-
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
