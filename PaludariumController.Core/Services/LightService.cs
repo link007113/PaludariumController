@@ -14,7 +14,7 @@ namespace PaludariumController.Core.Services
     public class LightService : ILightsService
     {
         private readonly IDevice device;
-
+        
         public Light Light { get; set; }
 
         public LightService(IDevice device)
@@ -31,7 +31,7 @@ namespace PaludariumController.Core.Services
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
 
-            File.WriteAllText(FileUtil.GetFilePath("Light.json"), JsonSerializer.Serialize(light, options));
+            File.WriteAllText(FileUtil.GetFilePath("files/light.json"), JsonSerializer.Serialize(light, options));         
             return result;
 
         }
@@ -42,8 +42,7 @@ namespace PaludariumController.Core.Services
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
 
-            Light light = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath("Light.json")), options);
-
+            Light light = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath("files/light.json")), options);       
             if (light == null)
             {
                 return GetCurrentLight();

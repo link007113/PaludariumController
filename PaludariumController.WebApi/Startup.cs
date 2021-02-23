@@ -76,9 +76,11 @@ namespace PaludariumController.WebApi
 
             if (useSwagger)
             {
+                Console.WriteLine("Swagger is enabled");
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PaludariumController.WebApi v1"));
             }
+
             app.UseRouting();
 
             app.UseAuthorization();
