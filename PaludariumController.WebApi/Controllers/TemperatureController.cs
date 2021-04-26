@@ -13,7 +13,6 @@ namespace PaludariumController.WebApi.Controllers
     public class TemperatureController : ControllerBase
     {
         private readonly ITemperatureService temperatureService;
-
         public TemperatureController(ITemperatureService temperatureService)
         {
             this.temperatureService = temperatureService;

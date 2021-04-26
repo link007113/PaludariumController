@@ -12,6 +12,8 @@ namespace PaludariumController.Core.Models
         public string Blue { get; set; }
         [LightValue]
         public string Green { get; set; }
+
+        public int Brightness { get { return (int.Parse(Red) + int.Parse(Green) + int.Parse(Blue)) / 3; } set { } }
         public Light()
         {
             this.Red = "255";

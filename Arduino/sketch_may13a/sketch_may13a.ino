@@ -115,8 +115,7 @@ void execute(int commandbitInt, int redInt, int greenInt, int blueInt )
       {
         ledState = 0;
         digitalWrite(LedPin, ledState);
-        delay(1000);
-        //  Serial.println("Following command recieved " + String(commandbitInt) + ", " +String(redInt)+", "+String(greenInt)+", "+String(blueInt)+"");
+        delay(1000);        
         Driver.begin();
         Driver.SetColor(redInt, greenInt, blueInt);
         Driver.end();
@@ -133,10 +132,10 @@ void execute(int commandbitInt, int redInt, int greenInt, int blueInt )
 
     case 5:
       {
-        ledState = 0;
+        ledState = 1;
         digitalWrite(LedPin, ledState);
         delay(50);
-        digitalWrite(RelayPin, 0);
+        digitalWrite(RelayPin, ledState);       
         break;
       }
     case 6:
@@ -144,7 +143,7 @@ void execute(int commandbitInt, int redInt, int greenInt, int blueInt )
         ledState = 0;
         digitalWrite(LedPin, ledState);
         delay(50);
-        digitalWrite(RelayPin, 1);
+        digitalWrite(RelayPin, ledState);       
         break;
       }     
     default:

@@ -14,7 +14,9 @@ namespace PaludariumController.Core.Services
 
     {
         private readonly IDevice device;
+        public static string InstanceName { get; set; }
 
+        private string FilePath = $"files/{InstanceName}_cooling.json";
         public TemperatureService(IDevice device)
         {
             this.device = device;
@@ -31,9 +33,9 @@ namespace PaludariumController.Core.Services
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
-            if (File.Exists(FileUtil.GetFilePath("files/cooling.json")))
+            if (File.Exists(FileUtil.GetFilePath(FilePath)))
             {
-                CoolingRequest cooling = JsonSerializer.Deserialize<CoolingRequest>(File.ReadAllText(FileUtil.GetFilePath("files/cooling.json")), options);
+                CoolingRequest cooling = JsonSerializer.Deserialize<CoolingRequest>(File.ReadAllText(FileUtil.GetFilePath(FilePath)), options);
                 if (cooling == null)
                 {
                     return new CoolingRequest() { State = "Unknown", Response = "Unknown", Succes = true };
@@ -50,8 +52,6 @@ namespace PaludariumController.Core.Services
 
         }
 
-
-
         public CoolingRequest SetCooling(bool state)
         {
             var result = device.SetFan(state);
@@ -60,9 +60,13 @@ namespace PaludariumController.Core.Services
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
 
-            File.WriteAllText(FileUtil.GetFilePath("files/cooling.json"), JsonSerializer.Serialize(result, options));
+            File.WriteAllText(FileUtil.GetFilePath(FilePath), JsonSerializer.Serialize(result, options));
 
             return result;
+        }
+        public void SetInstanceName(string instanceName)
+        {
+            InstanceName = instanceName;
         }
     }
 }

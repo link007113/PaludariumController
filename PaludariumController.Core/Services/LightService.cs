@@ -14,9 +14,10 @@ namespace PaludariumController.Core.Services
     public class LightService : ILightsService
     {
         private readonly IDevice device;
-        
         public Light Light { get; set; }
+        public static string InstanceName { get; set; }
 
+        private string FilePath { get {return $"files/{InstanceName.ToLower()}_light.json"; } } 
         public LightService(IDevice device)
         {
             this.device = device;
@@ -25,13 +26,15 @@ namespace PaludariumController.Core.Services
         public LightRequest SetLights(Light light, bool doFade)
         {
             var result = device.SetLights(light, doFade);
+            result.Name = $"{InstanceName} Light";
             this.Light = light;
             var options = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
 
-            File.WriteAllText(FileUtil.GetFilePath("files/light.json"), JsonSerializer.Serialize(light, options));         
+            File.WriteAllText(FileUtil.GetFilePath(FilePath), JsonSerializer.Serialize(light, options));
+
             return result;
 
         }
@@ -42,9 +45,9 @@ namespace PaludariumController.Core.Services
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
 
-            if (File.Exists(FileUtil.GetFilePath("files/light.json")))
+            if (File.Exists(FileUtil.GetFilePath(FilePath)))
             {
-                Light light = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath("files/light.json")), options);
+                Light light = JsonSerializer.Deserialize<Light>(File.ReadAllText(FileUtil.GetFilePath(FilePath)), options);
                 if (light == null)
                 {
                     return GetCurrentLight();
@@ -107,6 +110,10 @@ namespace PaludariumController.Core.Services
             }
         }
 
+        public void SetInstanceName(string instanceName) 
+        {
+            InstanceName = instanceName;
+        }
     }
 }
 

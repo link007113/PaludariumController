@@ -8,6 +8,7 @@ namespace PaludariumController.Core.Models
     {
         public Light Light { get; set; }
         public bool Fade { get; set; }
+        public string Name { get; set; }
         public string Response { get; set; }
         public bool Succes { get; set; }
         public string LightState
@@ -26,5 +27,6 @@ namespace PaludariumController.Core.Models
             }
             set { }
         }
+
     }
 }

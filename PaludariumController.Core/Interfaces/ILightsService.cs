@@ -9,5 +9,8 @@ namespace PaludariumController.Core.Interfaces
         public LightRequest SetLights(Light light, bool doFade);
         public Light GetLight();
         public Light GetLightPerHour(int hour);
+
+        public void SetInstanceName(string instanceName);
+
     }
 }

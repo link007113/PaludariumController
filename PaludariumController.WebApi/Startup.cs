@@ -34,7 +34,7 @@ namespace PaludariumController.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             InstanceName = Configuration.GetValue<string>("InstanceName");
-
+            Config.AppSettings.Configuration = Configuration;
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -47,7 +47,7 @@ namespace PaludariumController.WebApi
             if (!Directory.Exists(System.IO.Path.Combine(FileUtil.GetWorkingDir(), "files")))
             {
                 Directory.CreateDirectory(System.IO.Path.Combine(FileUtil.GetWorkingDir(), "files"));
-            }
+            }    
 
             switch (Configuration.GetValue<string>("Device"))
             {
@@ -60,7 +60,8 @@ namespace PaludariumController.WebApi
         private static void SetupCom(IServiceCollection services, IConfiguration configuration)
         {
             var serialPort = new System.IO.Ports.SerialPort();
-            serialPort.PortName = configuration.GetValue<string>("Port").ToUpper();
+            serialPort.PortName = configuration.GetValue<string>("Port");
+            Console.WriteLine($"{serialPort.PortName} is chosen based on Port variable: {configuration.GetValue<string>("Port")}");
             services.AddSingleton<System.IO.Ports.SerialPort>(serialPort);
             services.AddSingleton<IDevice, ComDevice>();
         }

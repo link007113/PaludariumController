@@ -49,7 +49,7 @@ namespace PaludariumController.InfraStructure.Devices
                     float.TryParse(result.Response.Substring(12).Replace('.', ','), out temp);
                     if (temp > 0)
                     {
-                        // LogHelper.Log($"The Temperature is {temp}", "info");
+                        // Console.WriteLine($"The Temperature is {temp}", "info");
                         result.Temperature = temp;
                     }
                 }
@@ -83,7 +83,7 @@ namespace PaludariumController.InfraStructure.Devices
                     }
                     catch (Exception ex)
                     {
-                        //// LogHelper.Log(ex.Message, "error");
+                        //// Console.WriteLine(ex.Message, "error");
                     }
                 }
             }
@@ -140,15 +140,21 @@ namespace PaludariumController.InfraStructure.Devices
                         int greenInt = (int)green;
                         int blueInt = (int)blue;
                         ColorCommand(redInt.ToString().PadLeft(3, '0'), blueInt.ToString().PadLeft(3, '0'), greenInt.ToString().PadLeft(3, '0'));
+                       
                         Thread.Sleep(500);
                     }
-                    
+                    result.Response = serialPort.ReadExisting();
+                    Console.WriteLine(result.Response);
+
                     result.Succes = true;
                 }
                 else
                 {
                     ColorCommand(light.Red.PadLeft(3, '0'), light.Blue.PadLeft(3, '0'), light.Green.PadLeft(3, '0'));
-                    
+
+                    result.Response = serialPort.ReadLine();
+                    Console.WriteLine(result.Response);
+
                     result.Succes = true;
                 }
                 return result;

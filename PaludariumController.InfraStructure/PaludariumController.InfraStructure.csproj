@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HADotNet.Core" Version="1.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PaludariumController.Core\PaludariumController.Core.csproj" />
   </ItemGroup>
 
