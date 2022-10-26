@@ -1,0 +1,95 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ae1\\OneDrive - Cow Hills BV\\source\\repos\\PaludariumController-master\\PaludariumController.Core\\PaludariumController.Core.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ae1\\OneDrive - Cow Hills BV\\source\\repos\\PaludariumController-master\\PaludariumController.Core\\PaludariumController.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ae1\\OneDrive - Cow Hills BV\\source\\repos\\PaludariumController-master\\PaludariumController.Core\\PaludariumController.Core.csproj",
+        "projectName": "PaludariumController.Core",
+        "projectPath": "C:\\Users\\ae1\\OneDrive - Cow Hills BV\\source\\repos\\PaludariumController-master\\PaludariumController.Core\\PaludariumController.Core.csproj",
+        "packagesPath": "C:\\Users\\ae1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ae1\\OneDrive - Cow Hills BV\\source\\repos\\PaludariumController-master\\PaludariumController.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\ae1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "\\\\ch-sv-dev02.cowhills.com\\NuGet CH feed": {},
+          "https://cowhillsretail.pkgs.visualstudio.com/_packaging/CH.Feed/nuget/v3/index.json": {},
+          "https://www.nuget.org/api/v2/": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "CoordinateSharp": {
+              "target": "Package",
+              "version": "[2.9.4.1, )"
+            },
+            "HADotNet.Core": {
+              "target": "Package",
+              "version": "[1.5.1, )"
+            },
+            "M2Mqtt": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "System.IO.Ports": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
